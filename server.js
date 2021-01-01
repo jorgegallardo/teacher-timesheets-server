@@ -5,6 +5,7 @@ const cors = require('cors');
 const port = process.env.PORT || 3000;
 require('./database/mongoose');
 const Timesheet = require('./database/timesheet');
+const createPDF = require('./pdf/pdfCreator');
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -19,6 +20,7 @@ app.post('/create', (req, res) => {
     .save()
     .then(() => {
       console.log(timesheet);
+      createPDF(req.body.firstName, req.body.lastName, req.body.fileNumber);
       res.status(201).json(timesheet);
     })
     .catch((error) => {

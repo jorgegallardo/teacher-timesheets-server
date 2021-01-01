@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const Timesheet = mongoose.model('Timesheet', {
-  name: { type: String },
+  firstName: { type: String },
+  lastName: { type: String },
   fileNumber: { type: Number },
 });
 
