@@ -2,19 +2,30 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const port = process.env.PORT || 3000;
+require('./database/mongoose');
+const Timesheet = require('./database/timesheet');
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("", (req, res) => {
-  res.send('it works');
+// app.get('', (req, res) => {
+//   res.send('it works');
+// });
+
+app.post('/create', (req, res) => {
+  const timesheet = new Timesheet(req.body);
+  timesheet
+    .save()
+    .then(() => {
+      console.log(timesheet);
+      res.status(201).json(timesheet);
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
 });
 
-app.post("/create", (req, res) => {
-  console.log(req.body);
-  res.status(201).json({ message: 'timesheet created successfully' });
-});
-
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('server is running');
 });
