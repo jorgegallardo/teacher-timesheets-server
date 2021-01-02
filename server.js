@@ -20,7 +20,8 @@ app.post('/create', (req, res) => {
     .save()
     .then(() => {
       console.log(timesheet);
-      createPDF(req.body.firstName, req.body.lastName, req.body.fileNumber);
+      const fileNumberAsString = req.body.fileNumber.toString();
+      createPDF(req.body.firstName, req.body.lastName, fileNumberAsString);
       res.status(201).json(timesheet);
     })
     .catch((error) => {
