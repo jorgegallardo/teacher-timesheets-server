@@ -1,9 +1,9 @@
-const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
+const { PDFDocument, rgb } = require('pdf-lib');
 const fs = require('fs');
 
 // createPDF('a', 'b', 'c').catch((err) => console.log(err));
 
-async function createPDF(firstName, lastName, fileNumber) {
+async function createPDF(firstName, lastName, fileNumber, id) {
   const content = await PDFDocument.load(
     fs.readFileSync('./per-session-time-sheet.pdf')
   );
@@ -32,7 +32,7 @@ async function createPDF(firstName, lastName, fileNumber) {
   });
 
   // Write the PDF to a file
-  fs.writeFileSync('./test.pdf', await content.save());
+  fs.writeFileSync('./timesheets/' + id + '.pdf', await content.save());
 }
 
 module.exports = createPDF;

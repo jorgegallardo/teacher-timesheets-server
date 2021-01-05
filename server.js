@@ -21,7 +21,12 @@ app.post('/create', (req, res) => {
     .then(() => {
       console.log(timesheet);
       const fileNumberAsString = req.body.fileNumber.toString();
-      createPDF(req.body.firstName, req.body.lastName, fileNumberAsString);
+      createPDF(
+        req.body.firstName,
+        req.body.lastName,
+        fileNumberAsString,
+        timesheet._id
+      );
       res.status(201).json(timesheet);
     })
     .catch((error) => {
